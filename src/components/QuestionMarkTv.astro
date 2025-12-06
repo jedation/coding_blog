@@ -1,116 +1,107 @@
-<div class="tv-container">
-  <img src="src/assets/tv-screen.svg" width="500" height="500" class="tv" />
+---
+import TvScreen from "../assets/tv-screen.svg";
+import "../styles/global.css";
+---
 
+<div class="tv-container">
+  <TvScreen width={500} height={450} class="tv" />
   <div class="text-container">
     <span class="text" id="face">:)</span>
   </div>
+
+  <script>
+    const faces = [":D", ":)", ":O", ":|", ":P"];
+    const el = document.getElementById("face");
+
+    function cycle() {
+      // Random delay between 300ms and 3000ms
+      const delay = 2000 + Math.random() * 10000;
+
+      // Pick a random face
+      el.textContent = faces[Math.floor(Math.random() * faces.length)];
+
+      setTimeout(cycle, delay);
+    }
+
+    cycle();
+  </script>
+
+  <style>
+    .tv-container {
+      position: relative;
+    }
+
+    .tv {
+      position: relative;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .text-container {
+      transform: rotate(90deg);
+      position: absolute;
+      top: 140px;
+      left: 70px;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      background: black;
+      z-index: 1;
+    }
+
+    .text {
+      color: #00ff66;
+      font-family: "VT323", monospace;
+      font-size: 8rem;
+      line-height: 1.4;
+      padding-left: 35px;
+      display: inline-block;
+      margin-right: 2rem;
+      text-shadow:
+        1.5px 0 rgba(255, 0, 0, 0.9),
+        -1.5px 0 rgba(0, 0, 255, 0.9),
+        0 0 6px rgba(0, 255, 102, 0.9);
+      animation: jitter 0.02s infinite steps(2, end);
+    }
+
+    @keyframes jitter {
+      0% {
+        transform: translateY(0);
+        opacity: 0.96;
+      }
+      50% {
+        transform: translateY(-0.8px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 0.95;
+      }
+    }
+
+    .text-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.04) 0,
+        rgba(255, 255, 255, 0.1) 1px,
+        rgba(0, 0, 0, 0) 2px
+      );
+      opacity: 0.7;
+    }
+
+    @keyframes shift {
+      0% {
+        transform: translateX(10%) translateY(10%);
+      }
+
+      100% {
+        transform: translateX(-10%) translateY(-10%);
+      }
+    }
+  </style>
 </div>
-
-<script>
-  const faces = [":D", ":)", ":O", ":|", ":P"];
-  const el = document.getElementById("face");
-
-  function cycle() {
-    // Random delay between 300ms and 3000ms
-    const delay = 2000 + Math.random() * 10000;
-
-    // Pick a random face
-    el.textContent = faces[Math.floor(Math.random() * faces.length)];
-
-    setTimeout(cycle, delay);
-  }
-
-  cycle();
-</script>
-
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
-  .tv-container {
-    position: relative;
-  }
-
-  .tv {
-    position: relative;
-    z-index: 4;
-    pointer-events: none;
-  }
-
-  .text-container {
-    transform: rotate(90deg);
-    position: absolute;
-    top: 140px;
-    left: 70px;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    background: black;
-    z-index: 1;
-  }
-
-  .text {
-    color: #00ff66;
-    font-family: "VT323", monospace;
-    font-size: 8rem;
-    line-height: 1.4;
-    padding-left: 35px;
-    display: inline-block;
-    margin-right: 2rem;
-    text-shadow:
-      1.5px 0 rgba(255, 0, 0, 0.9),
-      -1.5px 0 rgba(0, 0, 255, 0.9),
-      0 0 6px rgba(0, 255, 102, 0.9);
-    animation: jitter 0.02s infinite steps(2, end);
-  }
-
-  @keyframes jitter {
-    0% {
-      transform: translateY(0);
-      opacity: 0.96;
-    }
-    50% {
-      transform: translateY(-0.8px);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 0.95;
-    }
-  }
-
-  .text-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 3;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.04) 0,
-      rgba(255, 255, 255, 0.1) 1px,
-      rgba(0, 0, 0, 0) 2px
-    );
-    opacity: 0.7;
-  }
-
-  .fuzzy-overlay {
-    position: absolute;
-    inset: -200%;
-    background-image: url("src/assets/noise.png");
-    opacity: 25%;
-    z-index: 0;
-    /* pointer-events: none; */
-
-    animation: shift 0.2s linear infinite both;
-  }
-
-  @keyframes shift {
-    0% {
-      transform: translateX(10%) translateY(10%);
-    }
-
-    100% {
-      transform: translateX(-10%) translateY(-10%);
-    }
-  }
-</style>
